@@ -33,7 +33,7 @@ const challenge = (req, res) => {
     minTime: minTime.toString(),
     maxTime: maxTime.toString()
   };
-
+let fee =100;
   // ManageData operation, source represents an account that requests access to the service. Its signature will be
   // validated later.
   const op = stellar.Operation.manageData({
@@ -42,7 +42,8 @@ const challenge = (req, res) => {
     value: randomNonce()
   });
 
-  const tx = new stellar.TransactionBuilder(account, { timebounds })
+
+  const tx = new stellar.TransactionBuilder(account, {fee, timebounds })
     .addOperation(op)
     .build();
   tx.sign(SERVER_KEY_PAIR); // Sign by server
